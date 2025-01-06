@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+  --text-color-1: #7b1984;
+  --text-color-2: #000000;
+  --text-color-3: #FFFFFF;
+  --bg-1: #292929;
+}
+
+body {
+  margin: 0;
+  font-family: "Urbanist", serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+code {
+  font-family: "Urbanist", serif !important;
+}
