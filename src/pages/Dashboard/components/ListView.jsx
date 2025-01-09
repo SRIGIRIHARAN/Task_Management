@@ -32,9 +32,6 @@ const ListView = () => {
                     </button>
                     {openDropdown === 'todo' && (
                         <div className='to-do-list-body show'>
-                            <div className='to-do-list-body-head'>
-                                <button className='l-add-task-btn'><span>+</span> Add Task</button>
-                            </div>
                             <div className='to-do-list-body-no-item'>
                                 No Tasks in To-Do
                             </div>

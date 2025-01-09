@@ -5,10 +5,14 @@ import ListView from "./components/ListView";
 import BoardView from "./components/BoardView";
 import { IoChevronDown } from "react-icons/io5";
 import { LuSearch } from "react-icons/lu";
+import AddTaskModal from "../../components/ui/AddTaskModal/AddTaskModal";
 
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState("list");
     const [dropdown, setDropdown] = useState(null);
+    const [addTaskModal, setAddTaskModal] = useState(false);
+
+    const toggleAddTaskModal = (isOpen) => setAddTaskModal(isOpen);
 
     const dropdownRef = useRef(null);
 
@@ -90,7 +94,7 @@ const Dashboard = () => {
                         <span className="input-group-text"><LuSearch /></span>
                         <input type="text" className="form-control" placeholder="Search" autoComplete="off" />
                     </div>
-                    <button className="add-task-btn">Add Task</button>
+                    <button className="add-task-btn" onClick={() => toggleAddTaskModal(true)}>Add Task</button>
                 </div>
             </div>
 
@@ -98,6 +102,7 @@ const Dashboard = () => {
                 {activeTab === "list" && <ListView />}
                 {activeTab === "board" && <BoardView />}
             </div>
+            <AddTaskModal show={addTaskModal} handleClose={() => toggleAddTaskModal(false)} />
         </div>
     );
 };

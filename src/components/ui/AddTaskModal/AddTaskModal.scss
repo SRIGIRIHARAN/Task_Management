@@ -1,0 +1,180 @@
+/* General Modal Styles */
+.add-task-modal .modal-body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  
+  .add-task-modal .modal-content {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-6);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .add-task-modal .add-task-modal-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  /* Header Styles */
+  .add-task-modal .add-task-modal-head {
+    width: 100%;
+    max-height: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 23px 20px;
+  }
+  
+  .h-text-2 {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color-4);
+    line-height: 140%;
+  }
+  
+  .add-task-modal .close-btn {
+    width: fit-content;
+    height: fit-content;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color-2);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+  }
+  
+  .add-task-modal .close-btn:hover {
+    opacity: 1;
+  }
+  
+  /* Form Styles */
+  .add-task-modal .add-task-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .add-task-modal .form-group {
+    width: 100%;
+  }
+  
+  .add-task-modal .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color-4);
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  
+  .add-task-modal .form-group input[type="text"],
+  .add-task-modal .form-group input[type="date"],
+  .add-task-modal .form-group select,
+  .add-task-modal .form-group input[type="file"] {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-color-4);
+    background: var(--bg-2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .add-task-modal .form-group input[type="text"]:focus,
+  .add-task-modal .form-group input[type="date"]:focus,
+  .add-task-modal .form-group select:focus,
+  .add-task-modal .form-group input[type="file"]:focus {
+    border-color: red;
+    outline: none;
+  }
+  
+  /* CKEditor Wrapper */
+  .add-task-modal .form-group .ck-editor__editable {
+    min-height: 120px;
+    padding: 10px;
+    background: var(--bg-2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--text-color-4);
+  }
+  
+  /* Button Group for Task Category */
+  .add-task-modal .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .add-task-modal .btn-group .btn {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    background: var(--bg-2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: var(--text-color-4);
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .add-task-modal .btn-group .btn:hover {
+    background: red;
+    color: #fff;
+  }
+  
+  /* Buttons at the Bottom */
+  .add-task-modal .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+  
+  .add-task-modal .form-actions .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .add-task-modal .form-actions .btn-secondary {
+    background: red;
+    color: var(--text-color-4);
+  }
+  
+  .add-task-modal .form-actions .btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-task-modal .form-actions .btn-primary {
+    background: red;
+    color: #fff;
+  }
+  
+  .add-task-modal .form-actions .btn-primary:hover {
+    background: red;
+  }
+  
+  /* Responsive Styles */
+  @media (min-width: 576px) {
+    .modal-dialog {
+      --bs-modal-width: 674px;
+    }
+  }
+  
