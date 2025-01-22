@@ -10,7 +10,7 @@ import AddTaskModal from "../../components/ui/AddTaskModal/AddTaskModal";
 const Dashboard = () => {
     const [activeTab, setActiveTab] = useState("list");
     const [dropdown, setDropdown] = useState(null);
-    const [addTaskModal, setAddTaskModal] = useState(true);
+    const [addTaskModal, setAddTaskModal] = useState(false);
 
     const toggleAddTaskModal = (isOpen) => setAddTaskModal(isOpen);
 
