@@ -78,7 +78,7 @@
 }
 
 .dashboard .filter-dropdown-btn {
-  width: 100%;
+  min-width: 90px;
   height: 30px;
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -88,7 +88,7 @@
   color: rgba(0, 0, 0, 0.6);
   line-height: 140%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   padding: 0 10px;
@@ -121,6 +121,7 @@
   transition: opacity 0.3s ease-in-out;
   box-shadow: 0px 8px 15px rgba(123, 25, 132, 0.25),
     0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 0px 8px rgba(255, 255, 255, 0.6);
+  overflow: hidden;
 }
 
 .dashboard .filter-dropdown-menu.show {
@@ -142,6 +143,12 @@
   line-height: 140%;
   text-transform: uppercase;
   padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.dashboard .filter-dropdown-menu-item:hover,
+.dashboard .filter-dropdown-menu-item.active {
+  background: var(--bg-3);
 }
 
 .dashboard .dashboard-header-right {
@@ -209,6 +216,8 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+// <========================BOARD VIEW STYLE============================>
+
 .dashboard .list-view {
   width: 100%;
   height: 100%;
@@ -221,9 +230,6 @@
 .list-view .list-view-head {
   width: 100%;
   max-height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 10px 14px;
 }
 
@@ -381,12 +387,12 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 .list-view .form-control {
-  width: 20%;
+  width: 100%;
   max-height: 100%;
   background: transparent;
   border: none;
@@ -424,10 +430,30 @@
   font-weight: 500;
   color: rgba(0, 0, 0, 0.6);
   line-height: 140%;
+  position: relative;
+  overflow: hidden;
+  padding: 0 5px;
+}
+
+.list-view .add-date-select {
+  background: transparent;
+  border: none;
+  color: var(--text-color-2);
+}
+
+.list-view .custom-add-date {
+  width: 100%;
+  height: 30px;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-62%, 0%);
+  cursor: pointer;
 }
 
 .list-view .status-dropdown {
-  max-width: 100%;
+  max-width: fit-content;
   max-height: 100%;
   position: relative;
 }
@@ -450,6 +476,8 @@
   background: #fff9f9;
   border: 1.5px solid rgba(123, 25, 132, 0.15);
   border-radius: 12px;
+  box-shadow: 0px 8px 15px rgba(123, 25, 132, 0.25),
+    0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 0px 8px rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -488,6 +516,24 @@
 .list-view .status-dropdown-menu-item:hover,
 .list-view .status-dropdown-menu-item.active {
   background: var(--bg-3);
+}
+
+.list-view .status-dropdown-btn-select {
+  min-width: 67px;
+  height: 28px;
+  background: #dddadd;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color-2);
+  line-height: 140%;
+  text-transform: uppercase;
+  padding: 0 10px;
+}
+
+.list-view .bg-none {
+  background: transparent;
 }
 
 .list-view .to-do-body-add-task-button {
@@ -542,5 +588,168 @@
   font-size: 15px;
   font-weight: 500;
   color: var(--text-color-4);
+  line-height: 140%;
+}
+
+// <========================BOARD VIEW STYLE============================>
+
+.dashboard .board-view {
+  width: 100%;
+  height: 100%;
+  margin-top: 40px;
+}
+
+.board-view .board-view-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-7);
+  border-radius: 12px;
+  border: 1.5px solid rgba(88, 87, 81, 0.28);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px;
+}
+
+.board-view .board-view-inner-head {
+  min-width: 67px;
+  height: 28px;
+  background: var(--bg-3);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color-4);
+  line-height: 140%;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.board-view .in-progress {
+  background: var(--bg-4);
+}
+
+.board-view .completed {
+  background: var(--bg-5);
+}
+
+.board-view .board-view-inner-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.board-view .board-view-task-card {
+  width: 100%;
+  min-height: 110px;
+  background: var(--bg-6);
+  border: 1.5px solid rgba(88, 87, 81, 0.28);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 6px 16px;
+}
+
+.board-view .board-view-task-card-head {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.h-text-5 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-color-4);
+  line-height: 140%;
+}
+
+.board-view .more-dropdown {
+  max-width: fit-content;
+  max-height: 100%;
+  position: relative;
+}
+
+.board-view .more-dropdown-btn {
+  width: 40px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board-view .more-dropdown-menu {
+  min-width: 134px;
+  height: 76px;
+  background: #fff9f9;
+  border: 1.5px solid rgba(123, 25, 132, 0.15);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  transform: translate(0%, 0%);
+  z-index: 99;
+  transition: all 0.3s ease;
+  box-shadow: 0px 8px 15px rgba(123, 25, 132, 0.25),
+    0px 4px 6px rgba(0, 0, 0, 0.1), inset 0px 0px 8px rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+}
+
+.board-view .more-dropdown-menu-item {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color-4);
+  line-height: 140%;
+  padding: 0 12px;
+  transition: all 0.3s ease;
+}
+
+.board-view .text-delete {
+  color: #da2f2f;
+}
+
+.board-view .more-dropdown-menu-item:hover,
+.board-view .more-dropdown-menu-item.active {
+  background: var(--bg-3);
+}
+
+.board-view .board-view-task-card-foot {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.s-text-3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.52);
   line-height: 140%;
 }

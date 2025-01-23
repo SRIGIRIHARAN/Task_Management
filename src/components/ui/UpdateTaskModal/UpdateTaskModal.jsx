@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { IoClose } from 'react-icons/io5';
 
-function AddTaskModal({ show, handleClose }) {
+function UpdateTaskModal({ show, handleClose }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -85,7 +85,7 @@ function AddTaskModal({ show, handleClose }) {
         <Modal show={show} onHide={handleClose} size="lg" dialogClassName="add-task-modal" centered>
             <div className="add-task-modal-wrapper">
                 <Modal.Header>
-                    <Modal.Title>Create New Task</Modal.Title>
+                    <Modal.Title>Update Task</Modal.Title>
                     <button className="close-btn" onClick={handleClose}>
                         <IoClose />
                     </button>
@@ -225,4 +225,4 @@ function AddTaskModal({ show, handleClose }) {
     );
 }
 
-export default AddTaskModal;
+export default UpdateTaskModal;

@@ -4,8 +4,6 @@ import { IoChevronDown, IoReturnDownBack } from "react-icons/io5";
 import { FaPlus } from 'react-icons/fa';
 import calenderImg from '../../../assests/images/calender-icon.svg';
 import { BsPlus } from 'react-icons/bs';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const ListView = () => {
     const [openDropdowns, setOpenDropdowns] = useState(['todo', 'in-progress', 'completed']);
@@ -61,7 +59,6 @@ const ListView = () => {
         }
     };
 
-
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -81,18 +78,27 @@ const ListView = () => {
             return;
         }
 
+        let formattedDate;
+        try {
+            const dateObject = typeof selectedDate === 'string' ? new Date(selectedDate) : selectedDate;
+            formattedDate = dateObject.toISOString().split('T')[0];
+        } catch (error) {
+            console.error("Invalid date format:", selectedDate);
+            validationErrors.date = 'Invalid date selected.';
+            setErrors(validationErrors);
+            return;
+        }
+
         const task = {
             title: taskTitle,
-            date: selectedDate.toISOString().split('T')[0],
+            date: formattedDate,
             status: selectedStatus,
             category: selectedCategory,
         };
 
-        // Save to localStorage
         const existingTasks = JSON.parse(localStorage.getItem('tasks')) || [];
         localStorage.setItem('tasks', JSON.stringify([...existingTasks, task]));
 
-        // Reset form
         setTaskTitle('');
         setSelectedDate(null);
         setSelectedStatus('');
@@ -100,17 +106,39 @@ const ListView = () => {
         setAddTaskView(false);
     };
 
+    const handleCancelTask = () => {
+        setTaskTitle('');
+        setSelectedDate(null);
+        setSelectedStatus('');
+        setSelectedCategory('');
+        setAddTaskView(false);
+    }
+
+    const getTodayDate = () => {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
+    };
+
     return (
         <div className='list-view'>
             <div className='list-view-head'>
-                <span className='s-text-1'>Task name</span>
-                <span className='s-text-1'>
-                    Due on
-                    <img src={sortImg} width={8} height={8} alt='Sort_Image' />
-                </span>
-                <span className='s-text-1'>Task Status</span>
-                <span className='s-text-1'>Task Category</span>
-                <span className='s-text-1 vis-hide'>Task Category</span>
+                <div className='row'>
+                    <div className='col-md-3'>
+                        <span className='s-text-1'>Task name</span>
+                    </div>
+                    <div className='col-md-3'>
+                        <span className='s-text-1'>
+                            Due on
+                            <img src={sortImg} width={8} height={8} alt='Sort_Image' />
+                        </span>
+                    </div>
+                    <div className='col-md-3'>
+                        <span className='s-text-1'>Task Status</span>
+                    </div>
+                    <div className='col-md-3'>
+                        <span className='s-text-1'>Task Category</span>
+                    </div>
+                </div>
             </div>
             <div className='list-view-body'>
                 <div className='to-do-list'>
@@ -134,94 +162,109 @@ const ListView = () => {
                                 {addTaskView && (
                                     <div className='to-do-body-add-task-body-wrapper'>
                                         <div className='to-do-body-add-task-body'>
-                                            <input
-                                                type='text'
-                                                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
-                                                placeholder='Task Title'
-                                                value={taskTitle}
-                                                onChange={(e) => {
-                                                    setTaskTitle(e.target.value);
-                                                    setErrors((prev) => ({ ...prev, title: '' }));
-                                                }}
-                                                autoComplete='off'
-                                            />
-                                            {errors.title && <small className='error-text'>{errors.title}</small>}
-
-                                            <button className='add-date'>
-                                                <DatePicker
-                                                    selected={selectedDate}
-                                                    onChange={(date) => {
-                                                        setSelectedDate(date);
-                                                        setErrors((prev) => ({ ...prev, date: '' }));
-                                                    }}
-                                                    placeholderText=''
-                                                    className={`add-date ${errors.date ? 'is-invalid' : ''}`}
-                                                />
-                                                add date
-                                            </button>
-                                            {errors.date && <small className='error-text'>{errors.date}</small>}
-
-                                            <div className='status-dropdown' ref={dropdownRefs.dropdown1}>
-                                                <button className='status-dropdown-btn' onClick={() => toggleAddDrop("dropdown1")}>
-                                                    {selectedStatus || <BsPlus fontSize={20} />}
-                                                </button>
-                                                {addDrop.dropdown1 && (
-                                                    <div className='status-dropdown-menu'>
-                                                        {['to-do', 'in-progress', 'completed'].map((status) => (
-                                                            <button
-                                                                key={status}
-                                                                className='status-dropdown-menu-item'
-                                                                onClick={() => {
-                                                                    setSelectedStatus(status);
-                                                                    setAddDrop((prev) => ({ ...prev, dropdown1: false }));
-                                                                    setErrors((prev) => ({ ...prev, status: '' }));
-                                                                }}
-                                                            >
-                                                                {status}
-                                                            </button>
-                                                        ))}
+                                            <div className='row w-100'>
+                                                <div className='col-md-3'>
+                                                    <input
+                                                        type='text'
+                                                        className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                                                        placeholder='Task Title'
+                                                        value={taskTitle}
+                                                        onChange={(e) => {
+                                                            setTaskTitle(e.target.value);
+                                                            setErrors((prev) => ({ ...prev, title: '' }));
+                                                        }}
+                                                        autoComplete='off'
+                                                    />
+                                                    {errors.title && <small className='error-text'>{errors.title}</small>}
+                                                </div>
+                                                <div className='col-md-3'>
+                                                    <button
+                                                        className={`add-date ${selectedDate ? "add-date-select" : ""}`}
+                                                        onClick={() => document.getElementById('datePicker').click()}
+                                                    >
+                                                        <img src={calenderImg} width={18} height={18} alt="Calender Icon" />
+                                                        {selectedDate === getTodayDate() ? 'Today' : selectedDate || 'Add Date'}
+                                                        <input
+                                                            type="date"
+                                                            id="datePicker"
+                                                            value={selectedDate || ''}
+                                                            className="form-control custom-add-date"
+                                                            onChange={(e) => {
+                                                                setSelectedDate(e.target.value);
+                                                                setErrors((prev) => ({ ...prev, date: '' }));
+                                                            }}
+                                                        />
+                                                    </button>
+                                                    {errors.date && <div className="error-message">{errors.date}</div>}
+                                                </div>
+                                                <div className='col-md-3'>
+                                                    <div className='status-dropdown' ref={dropdownRefs.dropdown1}>
+                                                        <button className={`${selectedStatus ? "status-dropdown-btn-select" : "status-dropdown-btn"}`} onClick={() => toggleAddDrop("dropdown1")}>
+                                                            {selectedStatus || <BsPlus fontSize={20} />}
+                                                        </button>
+                                                        {addDrop.dropdown1 && (
+                                                            <div className='status-dropdown-menu'>
+                                                                {['to-do', 'in-progress', 'completed'].map((status) => (
+                                                                    <button
+                                                                        key={status}
+                                                                        className={`status-dropdown-menu-item ${selectedStatus === status ? 'active' : ''}`}
+                                                                        onClick={() => {
+                                                                            setSelectedStatus(status);
+                                                                            setAddDrop((prev) => ({ ...prev, dropdown1: false }));
+                                                                            setErrors((prev) => ({ ...prev, status: '' }));
+                                                                        }}
+                                                                    >
+                                                                        {status}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                )}
-                                            </div>
-                                            {errors.status && <small className='error-text'>{errors.status}</small>}
-
-                                            <div className='status-dropdown' ref={dropdownRefs.dropdown2}>
-                                                <button className='status-dropdown-btn' onClick={() => toggleAddDrop("dropdown2")}>
-                                                    {selectedCategory || <BsPlus fontSize={20} />}
-                                                </button>
-                                                {addDrop.dropdown2 && (
-                                                    <div className='status-dropdown-menu'>
-                                                        {['work', 'personal'].map((category) => (
-                                                            <button
-                                                                key={category}
-                                                                className='status-dropdown-menu-item'
-                                                                onClick={() => {
-                                                                    setSelectedCategory(category);
-                                                                    setAddDrop((prev) => ({ ...prev, dropdown2: false }));
-                                                                    setErrors((prev) => ({ ...prev, category: '' }));
-                                                                }}
-                                                            >
-                                                                {category}
-                                                            </button>
-                                                        ))}
+                                                    {errors.status && <small className='error-text'>{errors.status}</small>}
+                                                </div>
+                                                <div className='col-md-3'>
+                                                    <div className='status-dropdown' ref={dropdownRefs.dropdown2}>
+                                                        <button className={`${selectedCategory ? "status-dropdown-btn-select bg-none" : "status-dropdown-btn"}`} onClick={() => toggleAddDrop("dropdown2")}>
+                                                            {selectedCategory || <BsPlus fontSize={20} />}
+                                                        </button>
+                                                        {addDrop.dropdown2 && (
+                                                            <div className='status-dropdown-menu c-height'>
+                                                                {['work', 'personal'].map((category) => (
+                                                                    <button
+                                                                        key={category}
+                                                                        className={`status-dropdown-menu-item ${selectedCategory === category ? 'active' : ''}`}
+                                                                        onClick={() => {
+                                                                            setSelectedCategory(category);
+                                                                            setAddDrop((prev) => ({ ...prev, dropdown2: false }));
+                                                                            setErrors((prev) => ({ ...prev, category: '' }));
+                                                                        }}
+                                                                    >
+                                                                        {category}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                )}
+                                                    {errors.category && <small className='error-text'>{errors.category}</small>}
+                                                </div>
                                             </div>
-                                            {errors.category && <small className='error-text'>{errors.category}</small>}
                                         </div>
                                         <div className='to-do-body-add-task-button'>
                                             <button className='add-btn' onClick={handleAddTask}>
                                                 Add <IoReturnDownBack />
                                             </button>
-                                            <button className='cancel-btn' onClick={toggleAddTaskView}>
+                                            <button className='cancel-btn' onClick={handleCancelTask}>
                                                 Cancel
                                             </button>
                                         </div>
                                     </div>
                                 )}
                             </div>
+                            <div className='to-do-list-bod-item'>
+
+                            </div>
                             <div className='to-do-list-body-no-item'>
-                                No Tasks in To-Do
+                                No Tasks in Progress
                             </div>
                         </div>
                     )}
