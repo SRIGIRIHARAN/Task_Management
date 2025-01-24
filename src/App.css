@@ -50,4 +50,9 @@ h6 {
     .mobile-hide {
         display: none !important;
     }
+
+    .app .routes-div {
+        height: calc(100vh - 54px);
+        margin-top: 54px;
+    }
 }

@@ -40,7 +40,7 @@ const Login = () => {
                                 Continue with Google
                             </button>
                         </div>
-                        <div className="login-wrapper-image">
+                        <div className="login-wrapper-image mobile-hide">
                             <img src={loginimg1} className="login-image-1" width={591} height={662} alt="Login_Section_Image" />
                             <img src={loginimg2} className="login-image-2" width={834} height={834} alt="Login_Section_Image_1" />
                         </div>

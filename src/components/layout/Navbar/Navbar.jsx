@@ -41,7 +41,7 @@ const Navbar = () => {
     return (
         <header className={`top-navbar ${location.pathname === "/login" ? "d-none" : ""}`}>
             <a href='/' className='logo'>
-                <img src={task} width={32} height={32} alt='Logo_Image' />
+                <img src={task} width={32} height={32} className='mobile-hide' alt='Logo_Image' />
                 TaskBuddy
             </a>
             <div className='profile-dropdown' ref={dropdownRef}>

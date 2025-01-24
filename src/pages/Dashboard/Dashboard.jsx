@@ -39,7 +39,7 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <div className="dashboard-view">
+            <div className="dashboard-view mobile-hide">
                 <button
                     className={`view-btn ${activeTab === "list" ? "active" : ""}`}
                     onClick={() => setActiveTab("list")}
@@ -56,8 +56,8 @@ const Dashboard = () => {
                     Board
                 </button>
             </div>
-
             <div className="dashboard-header" ref={dropdownRef}>
+                <button className="add-task-btn desktop-hide tab-hide" onClick={() => toggleAddTaskModal(true)}>Add Task</button>
                 <div className="dashboard-header-left">
                     <p className="p-text-2">Filter by:</p>
 
@@ -132,12 +132,12 @@ const Dashboard = () => {
                         <span className="input-group-text"><LuSearch /></span>
                         <input type="text" className="form-control" placeholder="Search" autoComplete="off" />
                     </div>
-                    <button className="add-task-btn" onClick={() => toggleAddTaskModal(true)}>Add Task</button>
+                    <button className="add-task-btn mobile-hide" onClick={() => toggleAddTaskModal(true)}>Add Task</button>
                 </div>
             </div>
 
             <div className="dashboard-content">
-                {activeTab === "list" && <ListView />}
+                {activeTab === "list" && <ListView handleOpen={() => toggleUpdateTaskModal(true)} />}
                 {activeTab === "board" && <BoardView handleOpen={() => toggleUpdateTaskModal(true)} />}
             </div>
             <AddTaskModal show={addTaskModal} handleClose={() => toggleAddTaskModal(false)} />

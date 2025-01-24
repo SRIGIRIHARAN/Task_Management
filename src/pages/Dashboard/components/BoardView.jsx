@@ -38,7 +38,6 @@ const BoardView = ({ handleOpen }) => {
                     <div className="board-view-inner">
                         <div className="board-view-inner-head">to-do</div>
                         <div className="board-view-inner-body">
-                            {/* Task Card */}
                             <div className="board-view-task-card">
                                 <div className="board-view-task-card-head">
                                     <h5 className="h-text-5">Task Title 1</h5>

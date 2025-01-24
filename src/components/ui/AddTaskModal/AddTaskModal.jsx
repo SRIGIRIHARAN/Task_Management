@@ -91,7 +91,7 @@ function AddTaskModal({ show, handleClose }) {
                     </button>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit}>
+                    <Form className='w-100' onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
                             <Form.Control
                                 type="text"

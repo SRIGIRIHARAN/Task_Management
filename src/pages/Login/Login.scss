@@ -108,3 +108,33 @@
   transform: translate(10%, -40%);
   z-index: -2;
 }
+
+@media (max-width: 767px) {
+  .login {
+    padding: 10px;
+  }
+
+  .login .login-wrapper-content {
+    width: 100%;
+    align-items: center;
+  }
+
+  .p-text-1 {
+    text-align: center;
+  }
+
+  .login .login-wrapper-content-1 {
+    align-items: center;
+  }
+
+  .login .login-btn {
+    width: 259px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .login .login-btn img {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -3,9 +3,13 @@ import sortImg from '../../../assests/images/sort-icon.svg';
 import { IoChevronDown, IoReturnDownBack } from "react-icons/io5";
 import { FaPlus } from 'react-icons/fa';
 import calenderImg from '../../../assests/images/calender-icon.svg';
-import { BsPlus } from 'react-icons/bs';
+import { BsCheckCircleFill, BsPlus } from 'react-icons/bs';
+import { PiDotsSixVerticalBold } from 'react-icons/pi';
+import { BsThreeDots } from "react-icons/bs";
+import editIcon from "../../../assests/images/edit-icon.svg";
+import deleteIcon from "../../../assests/images/delete-icon.svg";
 
-const ListView = () => {
+const ListView = ({ handleOpen }) => {
     const [openDropdowns, setOpenDropdowns] = useState(['todo', 'in-progress', 'completed']);
     const [addTaskView, setAddTaskView] = useState(false);
     const [taskTitle, setTaskTitle] = useState('');
@@ -18,9 +22,12 @@ const ListView = () => {
         dropdown2: false,
     });
 
+    const [moreDrop, setMoreDrop] = useState(false);
+
     const dropdownRefs = {
         dropdown1: useRef(null),
         dropdown2: useRef(null),
+        dropdown3: useRef(null),
     };
 
     const toggleDropdown = (section) => {
@@ -46,6 +53,10 @@ const ListView = () => {
         });
     };
 
+    const toggleMoreDrop = () => {
+        setMoreDrop(!moreDrop)
+    }
+
     const handleClickOutside = (event) => {
         const isOutside = Object.entries(dropdownRefs).every(
             ([key, ref]) => !ref.current || !ref.current.contains(event.target)
@@ -56,6 +67,8 @@ const ListView = () => {
                 dropdown1: false,
                 dropdown2: false,
             });
+
+            setMoreDrop(false);
         }
     };
 
@@ -121,7 +134,7 @@ const ListView = () => {
 
     return (
         <div className='list-view'>
-            <div className='list-view-head'>
+            <div className='list-view-head mobile-hide'>
                 <div className='row'>
                     <div className='col-md-3'>
                         <span className='s-text-1'>Task name</span>
@@ -153,7 +166,7 @@ const ListView = () => {
                     </button>
                     {openDropdowns.includes('todo') && (
                         <div className='to-do-list-body show'>
-                            <div className='to-do-body-add-task'>
+                            <div className='to-do-body-add-task mobile-hide'>
                                 <div className='to-do-body-add-task-head'>
                                     <button className='l-add-task-btn' onClick={toggleAddTaskView}>
                                         <FaPlus className='plus-icon' />add task
@@ -163,7 +176,7 @@ const ListView = () => {
                                     <div className='to-do-body-add-task-body-wrapper'>
                                         <div className='to-do-body-add-task-body'>
                                             <div className='row w-100'>
-                                                <div className='col-md-3'>
+                                                <div className='col-3'>
                                                     <input
                                                         type='text'
                                                         className={`form-control ${errors.title ? 'is-invalid' : ''}`}
@@ -177,7 +190,7 @@ const ListView = () => {
                                                     />
                                                     {errors.title && <small className='error-text'>{errors.title}</small>}
                                                 </div>
-                                                <div className='col-md-3'>
+                                                <div className='col-3'>
                                                     <button
                                                         className={`add-date ${selectedDate ? "add-date-select" : ""}`}
                                                         onClick={() => document.getElementById('datePicker').click()}
@@ -197,7 +210,7 @@ const ListView = () => {
                                                     </button>
                                                     {errors.date && <div className="error-message">{errors.date}</div>}
                                                 </div>
-                                                <div className='col-md-3'>
+                                                <div className='col-3'>
                                                     <div className='status-dropdown' ref={dropdownRefs.dropdown1}>
                                                         <button className={`${selectedStatus ? "status-dropdown-btn-select" : "status-dropdown-btn"}`} onClick={() => toggleAddDrop("dropdown1")}>
                                                             {selectedStatus || <BsPlus fontSize={20} />}
@@ -222,7 +235,7 @@ const ListView = () => {
                                                     </div>
                                                     {errors.status && <small className='error-text'>{errors.status}</small>}
                                                 </div>
-                                                <div className='col-md-3'>
+                                                <div className='col-3'>
                                                     <div className='status-dropdown' ref={dropdownRefs.dropdown2}>
                                                         <button className={`${selectedCategory ? "status-dropdown-btn-select bg-none" : "status-dropdown-btn"}`} onClick={() => toggleAddDrop("dropdown2")}>
                                                             {selectedCategory || <BsPlus fontSize={20} />}
@@ -261,7 +274,64 @@ const ListView = () => {
                                 )}
                             </div>
                             <div className='to-do-list-bod-item'>
-
+                                <div className='row h-100'>
+                                    <div className='col-md-3'>
+                                        <div className='to-do-list-bod-item-1'>
+                                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                            <PiDotsSixVerticalBold className='select-icon' />
+                                            <BsCheckCircleFill className='select-icon' />
+                                            <p className='p-text-3'>Interview with Design Team</p>
+                                        </div>
+                                    </div>
+                                    <div className='col-3 mobile-hide'>
+                                        <div className='to-do-list-bod-item-1'>
+                                            <p className='p-text-3'>Today</p>
+                                        </div>
+                                    </div>
+                                    <div className='col-3 mobile-hide'>
+                                        <div className='to-do-list-bod-item-1'>
+                                            <button className='status-dropdown-btn-select'>to-do</button>
+                                        </div>
+                                    </div>
+                                    <div className='col-3 mobile-hide'>
+                                        <div className='to-do-list-bod-item-1 justify-content-between'>
+                                            <p className='p-text-3'>Work</p>
+                                            <div
+                                                className="more-dropdown"
+                                                ref={dropdownRefs.dropdown3}
+                                            >
+                                                <button
+                                                    className="more-dropdown-btn"
+                                                    onClick={() => toggleMoreDrop()}
+                                                >
+                                                    <BsThreeDots />
+                                                </button>
+                                                {moreDrop && (
+                                                    <div className="more-dropdown-menu">
+                                                        <button className="more-dropdown-menu-item" onClick={() => handleOpen()}>
+                                                            <img
+                                                                src={editIcon}
+                                                                width={16}
+                                                                height={16}
+                                                                alt="Edit_Icon"
+                                                            />
+                                                            Edit
+                                                        </button>
+                                                        <button className="more-dropdown-menu-item text-delete">
+                                                            <img
+                                                                src={deleteIcon}
+                                                                width={16}
+                                                                height={16}
+                                                                alt="Delete_Icon"
+                                                            />
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className='to-do-list-body-no-item'>
                                 No Tasks in Progress
