@@ -82,144 +82,168 @@ function UpdateTaskModal({ show, handleClose }) {
         formData.attachment;
 
     return (
-        <Modal show={show} onHide={handleClose} size="lg" dialogClassName="add-task-modal" centered>
-            <div className="add-task-modal-wrapper">
-                <Modal.Header>
-                    <Modal.Title>Update Task</Modal.Title>
-                    <button className="close-btn" onClick={handleClose}>
-                        <IoClose />
-                    </button>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form className='w-100' onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3">
-                            <Form.Control
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleInputChange}
-                                placeholder="Task title"
-                                isInvalid={!!errors.title}
-                            />
-                            {errors.title && <div className="text-danger">{errors.title}</div>}
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <CKEditor
-                                editor={ClassicEditor}
-                                data={formData.description}
-                                onChange={(event, editor) => {
-                                    const data = editor.getData();
-                                    setFormData(prev => ({
-                                        ...prev,
-                                        description: data,
-                                    }));
-                                    if (errors.description) {
-                                        setErrors(prev => ({ ...prev, description: '' }));
-                                    }
-                                }}
-                            />
-                            {errors.description && <div className="text-danger">{errors.description}</div>}
-                        </Form.Group>
-
-                        <div className="row">
-                            <div className="col-md-4">
+        <Modal show={show} onHide={handleClose} size="lg" dialogClassName="update-task-modal" centered>
+            <Modal.Header>
+                <Modal.Title>Update Task</Modal.Title>
+                <button className="close-btn" onClick={handleClose}>
+                    <IoClose />
+                </button>
+            </Modal.Header>
+            <div className="row">
+                <div className='col-md-8'>
+                    <div className="update-task-modal-wrapper">
+                        <Modal.Body>
+                            <Form className='w-100' onSubmit={handleSubmit}>
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Task Category*</Form.Label>
-                                    <div className="d-flex gap-2">
-                                        <button
-                                            type="button"
-                                            className={`category-btn ${formData.category === 'work' ? 'active' : ''}`}
-                                            onClick={() => handleInputChange({ target: { name: 'category', value: 'work' } })}
-                                        >
-                                            Work
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className={`category-btn ${formData.category === 'personal' ? 'active' : ''}`}
-                                            onClick={() => handleInputChange({ target: { name: 'category', value: 'personal' } })}
-                                        >
-                                            Personal
-                                        </button>
-                                    </div>
-                                    {errors.category && <div className="text-danger">{errors.category}</div>}
-                                </Form.Group>
-                            </div>
-                            <div className="col-md-4">
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Due on*</Form.Label>
                                     <Form.Control
-                                        type="date"
-                                        name="startDate"
-                                        value={formData.startDate}
+                                        type="text"
+                                        name="title"
+                                        value={formData.title}
                                         onChange={handleInputChange}
-                                        isInvalid={!!errors.startDate}
-                                        required
+                                        placeholder="Task title"
+                                        isInvalid={!!errors.title}
                                     />
-                                    {errors.startDate && <div className="text-danger">{errors.startDate}</div>}
+                                    {errors.title && <div className="text-danger">{errors.title}</div>}
                                 </Form.Group>
-                            </div>
-                            <div className="col-md-4">
+
                                 <Form.Group className="mb-3">
-                                    <Form.Label>Task Status*</Form.Label>
-                                    <Form.Select
-                                        name="status"
-                                        value={formData.status}
-                                        onChange={handleInputChange}
-                                        isInvalid={!!errors.status}
-                                        required
-                                    >
-                                        <option value="">Choose</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="inProgress">In-Progress</option>
-                                        <option value="completed">Completed</option>
-                                    </Form.Select>
-                                    {errors.status && <div className="text-danger">{errors.status}</div>}
+                                    <CKEditor
+                                        editor={ClassicEditor}
+                                        data={formData.description}
+                                        onChange={(event, editor) => {
+                                            const data = editor.getData();
+                                            setFormData(prev => ({
+                                                ...prev,
+                                                description: data,
+                                            }));
+                                            if (errors.description) {
+                                                setErrors(prev => ({ ...prev, description: '' }));
+                                            }
+                                        }}
+                                    />
+                                    {errors.description && <div className="text-danger">{errors.description}</div>}
                                 </Form.Group>
+
+                                <div className="row">
+                                    <div className="col-md-4">
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Task Category*</Form.Label>
+                                            <div className="d-flex gap-2">
+                                                <button
+                                                    type="button"
+                                                    className={`category-btn ${formData.category === 'work' ? 'active' : ''}`}
+                                                    onClick={() => handleInputChange({ target: { name: 'category', value: 'work' } })}
+                                                >
+                                                    Work
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    className={`category-btn ${formData.category === 'personal' ? 'active' : ''}`}
+                                                    onClick={() => handleInputChange({ target: { name: 'category', value: 'personal' } })}
+                                                >
+                                                    Personal
+                                                </button>
+                                            </div>
+                                            {errors.category && <div className="text-danger">{errors.category}</div>}
+                                        </Form.Group>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Due on*</Form.Label>
+                                            <Form.Control
+                                                type="date"
+                                                name="startDate"
+                                                value={formData.startDate}
+                                                onChange={handleInputChange}
+                                                isInvalid={!!errors.startDate}
+                                                required
+                                            />
+                                            {errors.startDate && <div className="text-danger">{errors.startDate}</div>}
+                                        </Form.Group>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <Form.Group className="mb-3">
+                                            <Form.Label>Task Status*</Form.Label>
+                                            <Form.Select
+                                                name="status"
+                                                value={formData.status}
+                                                onChange={handleInputChange}
+                                                isInvalid={!!errors.status}
+                                                required
+                                            >
+                                                <option value="">Choose</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="inProgress">In-Progress</option>
+                                                <option value="completed">Completed</option>
+                                            </Form.Select>
+                                            {errors.status && <div className="text-danger">{errors.status}</div>}
+                                        </Form.Group>
+                                    </div>
+                                </div>
+
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Attachment</Form.Label>
+                                    <div>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            id="fileInput"
+                                            style={{ display: 'none' }}
+                                            onChange={handleFileChange}
+                                        />
+                                        <div className="upload-field" onClick={() => document.getElementById('fileInput').click()}>
+                                            Drop your files here or <span className="s-text-2">Update</span>
+                                        </div>
+                                        {formData.attachmentPreview && (
+                                            <div className="upload-img-div">
+                                                <img src={formData.attachmentPreview} alt="Uploaded Attachment" />
+                                                <button
+                                                    type="button"
+                                                    className="upload-remove-btn"
+                                                    onClick={handleRemoveAttachment}
+                                                >
+                                                    <IoClose />
+                                                </button>
+                                            </div>
+                                        )}
+                                        {errors.attachment && <div className="text-danger">{errors.attachment}</div>}
+                                    </div>
+                                </Form.Group>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button className='cancel-btn' onClick={handleClose}>
+                                Cancel
+                            </button>
+                            <button
+                                className={`create-btn ${!isFormValid ? 'disable' : ''}`}
+                                disabled={!isFormValid}
+                                onClick={handleSubmit}
+                            >
+                                Create
+                            </button>
+                        </Modal.Footer>
+                    </div>
+                </div>
+                <div className='col-md-4'>
+                    <div className="activity-wrapper">
+                        <div className='activity-head'>Activity</div>
+                        <div className='activity-body'>
+                            <div className='activity-body-item'>
+                                <p className='p-text-4'>You created this task</p>
+                                <span className='s-text-4'>Dec 27 at 1:15 pm</span>
+                            </div>
+                            <div className='activity-body-item'>
+                                <p className='p-text-4'>You changed status from in progress to complete</p>
+                                <span className='s-text-4'>Dec 28 at 1:15 pm</span>
+                            </div>
+                            <div className='activity-body-item'>
+                                <p className='p-text-4'>You uploaded file</p>
+                                <span className='s-text-4'>Dec 29 at 1:15 pm</span>
                             </div>
                         </div>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Attachment</Form.Label>
-                            <div>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="fileInput"
-                                    style={{ display: 'none' }}
-                                    onChange={handleFileChange}
-                                />
-                                <div className="upload-field" onClick={() => document.getElementById('fileInput').click()}>
-                                    Drop your files here or <span className="s-text-2">Update</span>
-                                </div>
-                                {formData.attachmentPreview && (
-                                    <div className="upload-img-div">
-                                        <img src={formData.attachmentPreview} alt="Uploaded Attachment" />
-                                        <button
-                                            type="button"
-                                            className="upload-remove-btn"
-                                            onClick={handleRemoveAttachment}
-                                        >
-                                            <IoClose />
-                                        </button>
-                                    </div>
-                                )}
-                                {errors.attachment && <div className="text-danger">{errors.attachment}</div>}
-                            </div>
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <button className='cancel-btn' onClick={handleClose}>
-                        Cancel
-                    </button>
-                    <button
-                        className={`create-btn ${!isFormValid ? 'disable' : ''}`}
-                        onClick={handleSubmit}
-                    >
-                        Create
-                    </button>
-                </Modal.Footer>
+                    </div>
+                </div>
             </div>
         </Modal>
     );

@@ -216,6 +216,7 @@ function AddTaskModal({ show, handleClose }) {
                     <button
                         className={`create-btn ${!isFormValid ? 'disable' : ''}`}
                         onClick={handleSubmit}
+                        disabled={!isFormValid}
                     >
                         Create
                     </button>
