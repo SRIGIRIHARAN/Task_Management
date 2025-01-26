@@ -76,6 +76,16 @@ function AddTaskModal({ show, handleClose, onTaskAdded }) {
             const existingTasks = JSON.parse(localStorage.getItem('tasks')) || [];
             const updatedTasks = [...existingTasks, newTask];
             localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            setFormData({
+                title: '',
+                description: '',
+                category: '',
+                startDate: '',
+                status: '',
+                attachment: null,
+                attachmentPreview: null,
+            });
+            setErrors({});
             handleClose();
             onTaskAdded();
         }

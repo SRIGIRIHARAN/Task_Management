@@ -91,6 +91,22 @@ function UpdateTaskModal({ show, handleClose, handleUpdate, selectedTask }) {
         formData.status &&
         formData.attachment;
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const dateFormatted = date.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+        });
+        const timeFormatted = date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+        });
+        return { dateFormatted, timeFormatted };
+    };
+
+    const { dateFormatted, timeFormatted } = formatDate(formData.startDate);
+
     return (
         <Modal show={show} onHide={handleClose} size="lg" dialogClassName="update-task-modal" centered>
             <Modal.Header>
@@ -235,15 +251,15 @@ function UpdateTaskModal({ show, handleClose, handleUpdate, selectedTask }) {
                             <div className='activity-body'>
                                 <div className='activity-body-item'>
                                     <p className='p-text-4'>You created this task</p>
-                                    <span className='s-text-4'>Dec 27 at 1:15 pm</span>
+                                    <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                                 </div>
                                 <div className='activity-body-item'>
                                     <p className='p-text-4'>You changed status from in progress to complete</p>
-                                    <span className='s-text-4'>Dec 28 at 1:15 pm</span>
+                                    <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                                 </div>
                                 <div className='activity-body-item'>
                                     <p className='p-text-4'>You uploaded file</p>
-                                    <span className='s-text-4'>Dec 29 at 1:15 pm</span>
+                                    <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                                 </div>
                             </div>
                         </div>
@@ -255,15 +271,15 @@ function UpdateTaskModal({ show, handleClose, handleUpdate, selectedTask }) {
                         <div className='activity-body'>
                             <div className='activity-body-item'>
                                 <p className='p-text-4'>You created this task</p>
-                                <span className='s-text-4'>Dec 27 at 1:15 pm</span>
+                                <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                             </div>
                             <div className='activity-body-item'>
                                 <p className='p-text-4'>You changed status from in progress to complete</p>
-                                <span className='s-text-4'>Dec 28 at 1:15 pm</span>
+                                <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                             </div>
                             <div className='activity-body-item'>
                                 <p className='p-text-4'>You uploaded file</p>
-                                <span className='s-text-4'>Dec 29 at 1:15 pm</span>
+                                <span className='s-text-4'>{`${dateFormatted} at ${timeFormatted}`}</span>
                             </div>
                         </div>
                     </div>
