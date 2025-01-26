@@ -1,25 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { BsThreeDots } from "react-icons/bs";
 import editIcon from "../../../assests/images/edit-icon.svg";
 import deleteIcon from "../../../assests/images/delete-icon.svg";
 
-const BoardView = ({ handleOpen }) => {
-    const [tasks, setTasks] = useState({
-        "to-do": [
-            { id: "task-1", title: "Task Title 1", category: "Work", date: "Today" },
-            { id: "task-2", title: "Task Title 2", category: "Work", date: "Today" },
-        ],
-        "in-progress": [
-            { id: "task-3", title: "Task Title 3", category: "Work", date: "Tomorrow" },
-            { id: "task-4", title: "Task Title 4", category: "Work", date: "Tomorrow" },
-        ],
-        completed: [
-            { id: "task-5", title: "Task Title 5", category: "Work", date: "Next Week" },
-            { id: "task-6", title: "Task Title 6", category: "Work", date: "Next Week" },
-        ],
-    });
-
+const BoardView = ({ taskData, handleOpen, onTaskAdded }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const dropdownRefs = useRef({});
 
@@ -52,21 +37,16 @@ const BoardView = ({ handleOpen }) => {
             return;
         }
 
-        const sourceTasks = Array.from(tasks[source.droppableId]);
-        const [movedTask] = sourceTasks.splice(source.index, 1);
+        const updatedTask = { ...taskData.find((task) => task.id === draggableId), status: destination.droppableId };
 
-        const newTasks = {
-            ...tasks,
-            [source.droppableId]: sourceTasks,
-        };
+        const updatedTasks = taskData.map((task) =>
+            task.id === draggableId ? updatedTask : task
+        );
 
-        newTasks[destination.droppableId].splice(destination.index, 0, movedTask);
-
-        setTasks(newTasks);
     };
 
-    const renderTaskCard = (task, index, columnId) => (
-        <Draggable key={task.id} draggableId={task.id} index={index}>
+    const renderTaskCard = (task, index) => (
+        <Draggable key={task.id} draggableId={String(task.id)} index={index}>
             {(provided) => (
                 <div
                     className="board-view-task-card"
@@ -90,7 +70,7 @@ const BoardView = ({ handleOpen }) => {
                                 <div className="more-dropdown-menu">
                                     <button
                                         className="more-dropdown-menu-item"
-                                        onClick={() => handleOpen()}
+                                        onClick={() => handleOpen(task)}
                                     >
                                         <img
                                             src={editIcon}
@@ -100,7 +80,17 @@ const BoardView = ({ handleOpen }) => {
                                         />
                                         Edit
                                     </button>
-                                    <button className="more-dropdown-menu-item text-delete">
+                                    <button
+                                        className="more-dropdown-menu-item text-delete"
+                                        onClick={() => {
+                                            const existingTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+                                            const updatedTasks = existingTasks.filter(
+                                                (t) => t.id !== task.id
+                                            );
+                                            localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+                                            onTaskAdded();
+                                        }}
+                                    >
                                         <img
                                             src={deleteIcon}
                                             width={16}
@@ -134,7 +124,7 @@ const BoardView = ({ handleOpen }) => {
                             {...provided.droppableProps}
                         >
                             {columnTasks.map((task, index) =>
-                                renderTaskCard(task, index, columnId)
+                                renderTaskCard(task, index)
                             )}
                             {provided.placeholder}
                         </div>
@@ -148,8 +138,11 @@ const BoardView = ({ handleOpen }) => {
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="board-view">
                 <div className="row g-3 h-100">
-                    {Object.entries(tasks).map(([columnId, columnTasks]) =>
-                        renderColumn(columnId, columnTasks)
+                    {["to-do", "in-progress", "completed"].map((status) =>
+                        renderColumn(
+                            status,
+                            taskData?.filter((task) => task.status === status)
+                        )
                     )}
                 </div>
             </div>

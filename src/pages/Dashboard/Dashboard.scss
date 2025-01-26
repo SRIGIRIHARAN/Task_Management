@@ -143,6 +143,7 @@
   color: var(--text-color-2);
   line-height: 140%;
   text-transform: uppercase;
+  text-wrap: nowrap;
   padding: 10px 20px;
   transition: all 0.3s ease;
 }
@@ -217,7 +218,7 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-// <========================BOARD VIEW STYLE============================>
+// <========================LIST VIEW STYLE============================>
 
 .dashboard .list-view {
   width: 100%;
@@ -706,6 +707,33 @@
   font-weight: 500;
   color: var(--text-color-4);
   line-height: 140%;
+}
+
+.list-view .delete-container {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.list-view .delete-container-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.list-view .delete-btn {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 // <========================BOARD VIEW STYLE============================>
