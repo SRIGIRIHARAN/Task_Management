@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Task Management App
+
+This project is a task management application developed with React and integrated with Firebase for authentication and real-time data handling. The application stores data in localStorage for efficient and persistent task management. Users can manage, categorize, and organize tasks with ease, benefiting from a rich set of features designed to enhance productivity.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following scripts:
 
-### `npm start`
+#### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app in development mode.  
+Open [http://localhost:3000](http://localhost:3000) in your browser to view it.  
+The page will reload if you make changes. You will also see any lint errors in the console.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Overview of Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application provides users with a comprehensive task management system, offering the following key features:
 
-### `npm run build`
+### 1. **Authentication and User Profiles**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Google Sign-In Integration**: Users can sign in using their Google account through **Firebase Authentication**, ensuring a secure and seamless login experience.
+- **Profile Management**: Once logged in, users can manage and personalize their profiles.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. **Task Management**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Create, Edit, and Delete Tasks**: Users can easily add new tasks, modify existing ones, or remove unnecessary tasks.
+- **Task Categorization**: Tasks can be organized into categories like **work** or **personal**, enabling users to manage different types of tasks effectively.
+- **Tagging System**: Tasks can be tagged with relevant keywords for better categorization and easier searchability.
+- **Due Dates**: Tasks can have due dates assigned, allowing users to track deadlines and stay on top of their schedules.
+- **Drag-and-Drop Sorting**: Tasks can be rearranged within lists using an intuitive drag-and-drop interface.
+- **Sorting by Date**: Users can sort tasks by due date in ascending or descending order to prioritize tasks efficiently.
 
-### `npm run eject`
+### 3. **Batch Operations**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Mass Action Capabilities**: Users can perform actions on multiple tasks at once, such as deleting or marking them as complete, saving time and effort in managing tasks.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 4. **Task Activity Tracking**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **History Log**: Every modification (creation, editing, or deletion) to a task is logged and accessible, allowing users to track task history and changes.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 5. **File Attachments**
 
-## Learn More
+- **File Uploads**: Users can attach relevant files or documents to tasks, providing extra context and information for better task management.
+- **Task Detail View**: Attached files are displayed in the task details for easy reference.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 6. **Advanced Search and Filters**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Customizable Filters**: Users can filter tasks by tags, categories, or date range to quickly locate specific tasks.
+- **Search by Task Title**: A built-in search bar enables users to find tasks by title, helping them access tasks faster.
 
-### Code Splitting
+### 7. **Flexible Views**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Kanban Board**: Users can view tasks in a Kanban-style board for a visual, intuitive overview of their tasks.
+- **List View**: A classic list view is available for users who prefer a more linear, detailed task representation.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Challenges and Solutions
 
-### Making a Progressive Web App
+### Challenge: **Drag-and-Drop Functionality**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Issue**: Implementing a smooth and user-friendly drag-and-drop experience for reordering tasks within lists or boards.
+- **Solution**: Integrated the **React DnD** (React Drag-and-Drop) library to provide a flexible API for handling drag-and-drop interactions. This solution allows users to reorder tasks efficiently while ensuring the order is preserved even after tasks are moved.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Deployment URL
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can view the live application at the following URL:  
+[Task Management App](https://task-management-self-mu.vercel.app/)
