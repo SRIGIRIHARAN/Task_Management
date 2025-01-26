@@ -587,6 +587,10 @@
   padding: 0 10px;
 }
 
+.list-view .to-do-list-bod-item:last-child {
+  border-bottom: none;
+}
+
 .list-view .to-do-list-bod-item-1 {
   width: 100%;
   height: 100%;

@@ -9,18 +9,35 @@ import AddTaskModal from "../../components/ui/AddTaskModal/AddTaskModal";
 import UpdateTaskModal from "../../components/ui/UpdateTaskModal/UpdateTaskModal";
 
 const Dashboard = () => {
+    const [taskData, setTaskData] = useState([]);
+    const [selectedTask, setSelectedTask] = useState(null);
     const [activeTab, setActiveTab] = useState("list");
     const [dropdown, setDropdown] = useState(null);
     const [addTaskModal, setAddTaskModal] = useState(false);
     const [updateTaskModal, setUpdateTaskModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("Category");
     const [selectedDate, setSelectedDate] = useState("Due Date");
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        setTaskData(storedTasks);
+    }, [refreshTrigger]);
 
     const toggleAddTaskModal = (isOpen) => setAddTaskModal(isOpen);
 
     const toggleUpdateTaskModal = (isOpen) => setUpdateTaskModal(isOpen);
 
+    const handleEdit = (task) => {
+        setSelectedTask(task);
+        toggleUpdateTaskModal(true);
+    };
+
     const dropdownRef = useRef(null);
+
+    const handleTaskAdded = () => {
+        setRefreshTrigger(prev => prev + 1);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -36,6 +53,15 @@ const Dashboard = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    const handleUpdate = (updatedTask) => {
+        const updatedTasks = taskData.map(task =>
+            task.title === updatedTask.title ? updatedTask : task
+        );
+        setTaskData(updatedTasks);
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        toggleUpdateTaskModal(false);
+    };
 
     return (
         <div className="dashboard">
@@ -137,11 +163,11 @@ const Dashboard = () => {
             </div>
 
             <div className="dashboard-content">
-                {activeTab === "list" && <ListView handleOpen={() => toggleUpdateTaskModal(true)} />}
+                {activeTab === "list" && <ListView handleOpen={() => toggleUpdateTaskModal(true)} refreshTrigger={refreshTrigger} taskData={taskData} onTaskAdded={handleTaskAdded} handleEdit={handleEdit} />}
                 {activeTab === "board" && <BoardView handleOpen={() => toggleUpdateTaskModal(true)} />}
             </div>
-            <AddTaskModal show={addTaskModal} handleClose={() => toggleAddTaskModal(false)} />
-            <UpdateTaskModal show={updateTaskModal} handleClose={() => toggleUpdateTaskModal(false)} />
+            <AddTaskModal show={addTaskModal} handleClose={() => toggleAddTaskModal(false)} onTaskAdded={handleTaskAdded} />
+            <UpdateTaskModal show={updateTaskModal} handleClose={() => toggleUpdateTaskModal(false)} selectedTask={selectedTask} handleUpdate={handleUpdate} />
         </div>
     );
 };

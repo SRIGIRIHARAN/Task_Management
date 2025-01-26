@@ -4,7 +4,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { IoClose } from 'react-icons/io5';
 
-function AddTaskModal({ show, handleClose }) {
+function AddTaskModal({ show, handleClose, onTaskAdded }) {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -65,11 +65,19 @@ function AddTaskModal({ show, handleClose }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
+            const newTask = {
+                id: Date.now(),
+                title: formData.title,
+                description: formData.description,
+                status: formData.status,
+                category: formData.category,
+                date: formData.startDate,
+            };
             const existingTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-            const updatedTasks = [...existingTasks, formData];
+            const updatedTasks = [...existingTasks, newTask];
             localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-            console.log('Task saved to localStorage:', formData);
             handleClose();
+            onTaskAdded();
         }
     };
 
@@ -170,8 +178,8 @@ function AddTaskModal({ show, handleClose }) {
                                         required
                                     >
                                         <option value="">Choose</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="inProgress">In-Progress</option>
+                                        <option value="to-do">To-Do</option>
+                                        <option value="in-progress">In-Progress</option>
                                         <option value="completed">Completed</option>
                                     </Form.Select>
                                     {errors.status && <div className="text-danger">{errors.status}</div>}
